@@ -20,11 +20,14 @@ load_rc_config $name
 : ${xmage_chdir:="/usr/local/games/xmage/mage-server"}
 : ${xmage_jvmxms:="-Xms256M"}
 : ${xmage_jvmxmx:="-Xmx512M"}
-: ${xmage_jvmopt:="-Djava.security.policy=./config/security.policy -Djava.util.logging.config.file=./config/logging.config -Dlog4j.configuration=file:./config/log4j.properties"}
 
-procname="/usr/local/openjdk8-jre/bin/java"
+pidfile_child="/var/run/${name}.pid"
+pidfile="/var/run/${name}_daemon.pid"
+
 command="/usr/sbin/daemon"
-command_args="-f java ${xmage_jvmxms} ${xmage_jvmxmx} -jar ./lib/mage-server-1.4.31.jar"
+command_args="-f -P ${pidfile} -p ${pidfile_child} /usr/local/bin/java ${xmage_jvmxms} ${xmage_jvmxmx} ${xmage_javaopt} -jar ${xmage_javacmd}"
+start_precmd="touch ${pidfile}; chown ${xmage_user} ${pidfile}; touch ${pidfile_child}; chown ${xmage_user} ${pidfile_child}"
+stop_postcmd="rm ${pidfile}; rm ${pidfile_child}"
 
 run_rc_command "$1"
 

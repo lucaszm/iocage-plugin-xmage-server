@@ -25,9 +25,21 @@ cd mage-server
 chmod +x startServer.sh
 sed -i '' 's/$//' startServer.sh
 
+# parse the java command
+JAVA_CMD=$(awk '/^java/{print}' ./startServer.sh)
+JAVA_JAR=$(echo $JAVA_CMD | awk -F ' -jar ' '{print $2}')
+JAVA_OPT=$(echo $JAVA_CMD | awk '{ for (i=2; i <= NF; i++) {
+                                     if ($i =="-jar") break;
+                                     if ($i ~ "^-Xmx" || $i ~ "^-Xms" || $i ~ "-XX:MaxPermSize") continue;
+                                     print $i," "
+                                     }
+                                 }' )
+
 # Enable & start the service
 sysrc -f /etc/rc.conf xmage_enable="YES"
 sysrc -f /etc/rc.conf xmage_jvmxms="-Xms256M"
 sysrc -f /etc/rc.conf xmage_jvmxmx="-Xmx1024M"
+sysrc -f /etc/rc.conf xmage_javacmd+=" $JAVA_JAR"
+sysrc -f /etc/rc.conf xmage_javaopt+=" $JAVA_OPT"
 
 service xmage start
