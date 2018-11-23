@@ -43,6 +43,7 @@ JAVA_OPT=$(echo $JAVA_CMD | awk '{ for (i=2; i <= NF; i++) {
 
 # Enable & start the service
 sysrc -f /etc/rc.conf xmageserver_enable="YES"
+sysrc -f /etc/rc.conf xmageserver_user="$USER_NAME"
 sysrc -f /etc/rc.conf xmageserver_jvmxms="-Xms256M"
 sysrc -f /etc/rc.conf xmageserver_jvmxmx="-Xmx1024M"
 sysrc -f /etc/rc.conf xmageserver_javacmd+=" $JAVA_JAR"

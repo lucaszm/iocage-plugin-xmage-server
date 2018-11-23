@@ -9,7 +9,7 @@
 # xmageserver_enable (bool):         Set to NO by default.
 #                                    Set it to YES to enable it.
 # xmageserver_user (user):           Set user to run as.
-#                                    The default is xmagesrv
+#                                    The default is xmagesvr
 # xmageserver_chdir (directory):     Set directory where xmage server is installed.
 #                                    The default is /usr/local/games/xmage/mage-server
 # xmageserver_jvmxms (memory):       The initial memory allocated to the Java virtual machine.
@@ -28,7 +28,7 @@ rcvar="${name}_enable"
 load_rc_config $name
 
 : ${xmageserver_enable:="NO"}
-: ${xmageserver_user:="xmagesrv"}
+: ${xmageserver_user:="xmagesvr"}
 : ${xmageserver_chdir:="/usr/local/games/xmage/mage-server"}
 : ${xmageserver_jvmxms:="-Xms256M"}
 : ${xmageserver_jvmxmx:="-Xmx512M"}

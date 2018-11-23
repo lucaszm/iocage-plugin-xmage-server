@@ -4,6 +4,10 @@
   /  \| |  | | (_| | (_| |  __/
  /_/\_\_|  |_|\__,_|\__, |\___|
                     |___/      
-XMage allows you to play Magic: The Gathering against computer opponents and/or 
-your friends.  For more info, see http://xmage.de/
+
+XMage stands for Extended - Magic, Another Game Engine
+This jail hosts an XMage server. To play a game, you need to download the
+client application from http://xmage.de/ and connect to your server.
+
+For more info, see https://github.com/magefree/mage
 
