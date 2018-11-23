@@ -2,8 +2,8 @@
 
 CONFIG_URL=http://xmage.de/xmage/config.json 
 INSTALL_DIR=/usr/local/games/xmage
-USER_NAME=xmage
-USER_UID=1200
+USER_NAME=xmagesvr
+USER_UID=1201
 
 # Create user
 pw useradd -n $USER_NAME -u $USER_UID -G games -d /nonexistent -s /usr/sbin/nologin -w no
@@ -21,7 +21,7 @@ tar xf $FETCH_FILE mage-server/
 
 # File cleanup
 rm  $FETCH_FILE
-chown -R xmage:xmage .
+chown -R $USER_NAME:$USER_NAME .
 
 cd mage-server
 chmod +x startServer.sh
@@ -42,10 +42,10 @@ JAVA_OPT=$(echo $JAVA_CMD | awk '{ for (i=2; i <= NF; i++) {
                                  }' )
 
 # Enable & start the service
-sysrc -f /etc/rc.conf xmage_enable="YES"
-sysrc -f /etc/rc.conf xmage_jvmxms="-Xms256M"
-sysrc -f /etc/rc.conf xmage_jvmxmx="-Xmx1024M"
-sysrc -f /etc/rc.conf xmage_javacmd+=" $JAVA_JAR"
-sysrc -f /etc/rc.conf xmage_javaopt+=" $JAVA_OPT"
+sysrc -f /etc/rc.conf xmageserver_enable="YES"
+sysrc -f /etc/rc.conf xmageserver_jvmxms="-Xms256M"
+sysrc -f /etc/rc.conf xmageserver_jvmxmx="-Xmx1024M"
+sysrc -f /etc/rc.conf xmageserver_javacmd+=" $JAVA_JAR"
+sysrc -f /etc/rc.conf xmageserver_javaopt+=" $JAVA_OPT"
 
-service xmage start
+service xmageserver start

@@ -1,0 +1,45 @@
+#!/bin/sh
+#
+# PROVIDE: xmageserver
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+#
+# Add the following lines to /etc/rc.conf to enable/configure this service:
+#
+# xmageserver_enable (bool):         Set to NO by default.
+#                                    Set it to YES to enable it.
+# xmageserver_user (user):           Set user to run as.
+#                                    The default is xmagesrv
+# xmageserver_chdir (directory):     Set directory where xmage server is installed.
+#                                    The default is /usr/local/games/xmage/mage-server
+# xmageserver_jvmxms (memory):       The initial memory allocated to the Java virtual machine.
+#                                    The default is 256 MB
+# xmageserver_jvmxmx (memory):       The maximum memory allocated to the Java virtual machine.
+#                                    The default is 512 MB
+# xmageserver_javaopt (memory):      Java options / system properties
+#                                    No default, set /etc/rc.conf
+# xmageserver_javacmd (memory):      The jarfile to run
+#                                    No default, set in /etc/rc.conf
+#
+
+. /etc/rc.subr
+name="xmageserver"
+rcvar="${name}_enable"
+load_rc_config $name
+
+: ${xmageserver_enable:="NO"}
+: ${xmageserver_user:="xmagesrv"}
+: ${xmageserver_chdir:="/usr/local/games/xmage/mage-server"}
+: ${xmageserver_jvmxms:="-Xms256M"}
+: ${xmageserver_jvmxmx:="-Xmx512M"}
+
+pidfile_child="/var/run/${name}.pid"
+pidfile="/var/run/${name}_daemon.pid"
+
+command="/usr/sbin/daemon"
+command_args="-f -P ${pidfile} -p ${pidfile_child} /usr/local/bin/java ${xmageserver_jvmxms} ${xmageserver_jvmxmx} ${xmageserver_javaopt} -jar ${xmageserver_javacmd}"
+start_precmd="touch ${pidfile}; chown ${xmageserver_user} ${pidfile}; touch ${pidfile_child}; chown ${xmageserver_user} ${pidfile_child}"
+stop_postcmd="rm -f ${pidfile}; rm -f ${pidfile_child}"
+
+run_rc_command "$1"
+
