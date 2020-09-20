@@ -1,0 +1,66 @@
+#!/bin/sh
+
+# Get configuration setting from XMage configuration file
+CONFIG_FILE=/usr/local/games/xmage/mage-server/config/config.xml
+
+if [ $# != 1 ]; then
+    echo "Usage: xmage-get <parameter>"
+    exit 1
+fi
+
+case $1 in
+    serverAddress) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    serverName) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    port) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    secondaryBindPort) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    backlogSize) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    numAcceptThreads) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    maxPoolSize) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    leasePeriod) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    socketWriteTimeout) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    maxGameThreads) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    maxUserNameLength) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    invalidUserNamePattern) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    minPasswordLength) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    maxPasswordLength) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    maxAiOpponents) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    saveGameActivated) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    authenticationActivated) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    googleAccount) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    mailgunApiKey) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    mailgunDomain) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    mailSmtpHost) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    mailSmtpPort) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    mailUser) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    mailPassword) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    mailFromAddress) echo `xml sel -t -v "//server/@${1}" ${CONFIG_FILE}`
+    ;;
+    *) echo "Unknown option">&2
+       exit 1
+    ;;
+esac
+
