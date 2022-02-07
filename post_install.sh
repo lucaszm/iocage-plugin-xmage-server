@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CONFIG_URL=http://xmage.de/xmage/config.json 
+CONFIG_URL=http://xmage.today/config.json 
 INSTALL_DIR=/usr/local/games/xmage
 USER_NAME=xmagesvr
 USER_UID=1201
@@ -25,10 +25,12 @@ chown -R $USER_NAME:$USER_NAME .
 
 cd mage-server
 chmod +x startServer.sh
-sed -i '' 's/$//' startServer.sh
+sed -i '' 's/
+$//' startServer.sh
 
 for file in `ls config`; do
-  sed -i '' 's/$//' ./config/$file
+  sed -i '' 's/
+$//' ./config/$file
 done
 
 # parse the java command
